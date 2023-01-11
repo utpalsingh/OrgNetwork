@@ -1,0 +1,41 @@
+---
+  - name: Initializing switch configuration
+    hosts: iosswitchbranch
+
+    tasks:
+      - name: setting interfaces to default before implementing new configuration
+        cisco.ios.ios_config:
+          lines:
+          - default interface FastEthernet0/2
+          - default interface FastEthernet0/3
+          - default interface FastEthernet0/4
+          - default interface FastEthernet0/5          
+
+      - name: setting vlan 2 on interfaces
+        cisco.ios.ios_config:
+          lines:
+          - switchport mode access
+          - switchport access vlan 2
+          - duplex full
+          - speed auto
+          - speed auto
+          - no shutdown          
+          parents: '{{ item }}'
+        with_items:
+        - interface FastEthernet0/2
+        - interface FastEthernet0/3
+
+      - name: setting vlan 3 & other config on interface
+        cisco.ios.ios_config:
+          lines:
+          - switchport mode access
+          - switchport access vlan 3
+          - authentication timer inactivity 1
+          - shutdown
+          - duplex full
+          - speed 100
+          - shutdown
+          parents: '{{ item }}'
+        with_items:
+        - interface FastEthernet0/4
+        - interface FastEthernet0/5
