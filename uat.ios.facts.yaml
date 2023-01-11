@@ -3,7 +3,7 @@
   hosts: iosswitchbranch
 
   tasks:
-    - name: Resource facts
+    - name:
       cisco.ios.ios_facts:
         gather_subset:
         - '!config'
