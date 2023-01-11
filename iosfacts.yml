@@ -4,7 +4,7 @@
 
   tasks:
     - name: resource facts
-      cisco.ios.ios_facts:
+      ios_facts:
         gather_subset:
         - '!config'
     - debug:
