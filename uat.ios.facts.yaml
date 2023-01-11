@@ -1,4 +1,8 @@
 ---
+  - name: Initializing resource facts collection
+    hosts: iosswitchbranch
+    gather_facts: no
+
     tasks:
       - name: Resource facts
         ios_facts:
