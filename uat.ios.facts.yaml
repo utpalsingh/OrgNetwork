@@ -1,8 +1,4 @@
 ---
-  - name: Initializing resource facts collection
-    hosts: ios-router
-    gather_facts: no
-
     tasks:
       - name: Resource facts
         ios_facts:
