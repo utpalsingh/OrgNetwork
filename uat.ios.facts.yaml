@@ -1,13 +1,17 @@
 ---
-- name:
-  cisco.ios.ios_facts:
-    gather_subset:
-    - '!config'
-- debug:
-    msg:
-    - "Device Hostname:         '{{ ansible_net_hostname }}'"
-    - "Device Model:            '{{ ansible_net_model }}'"
-    - "Device Software Version: '{{ ansible_net_version }}'"
-    - "Device Serial Number:    '{{ ansible_net_serialnum }}'"
-    - "Device Software:         '{{ ansible_net_image }}'"
-    - "Device Neighbors:        '{{ ansible_net_neighbors }}'"
+  - name: Initializing resource facts collection
+    hosts: iosbranchrouter    
+
+    tasks:
+      - name: Resource facts
+        ios_facts:
+          gather_subset:
+          - '!config'
+      - debug:
+          msg:
+          - "Device Hostname:         '{{ ansible_net_hostname }}'"
+          - "Device Model:            '{{ ansible_net_model }}'"
+          - "Device Software Version: '{{ ansible_net_version }}'"
+          - "Device Serial Number:    '{{ ansible_net_serialnum }}'"
+          - "Device Software:         '{{ ansible_net_image }}'"
+          - "Device Neighbors:        '{{ ansible_net_neighbors }}'"
