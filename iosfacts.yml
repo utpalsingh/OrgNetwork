@@ -1,9 +1,9 @@
 ---
-- name: Initializing resource facts collection
+- name: initializing resource facts collection
   hosts: iosswitchbranch
 
   tasks:
-    - name: Resource facts
+    - name: resource facts
       cisco.ios.ios_facts:
         gather_subset:
         - '!config'
