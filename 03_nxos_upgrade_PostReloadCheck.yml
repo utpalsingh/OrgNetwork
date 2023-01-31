@@ -1,0 +1,16 @@
+---
+  - name: Initializing software upgrade on n9k switch
+    hosts: nxosdc
+    gather_facts: no
+
+    tasks:
+      - name: Checking newly installed OS
+        nxos_command:
+          commands: [show version | json]
+        register: output
+      - name: Print current OS version
+        debug: msg="{{output['stdout'][0]['kickstart_ver_str']}}"
+      - name: Assert switch is running with recommended OS
+        assert:
+          that:
+          - output['stdout'][0]['kickstart_ver_str'] == '9.3(9)'
