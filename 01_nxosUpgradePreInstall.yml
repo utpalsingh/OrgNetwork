@@ -1,0 +1,49 @@
+---
+  - name: Initializing switch configuration
+    hosts: iosswitchbranch
+    gather_facts: no
+
+    tasks:
+      - name: Removing old and unused OS from device
+        nxos_command:
+          commands:
+          - delete bootflash:nxos.7.0.3.I2.2.bin no-prompt
+          - delete bootflash:nxos.7.0.3.I2.2d.bin no-prompt
+
+      - name: Checking current OS version
+        nxos_command:
+          commands: [show version | json]
+        register: output
+      - name: Print current OS version
+        debug: msg="{{output['stdout'][0]['kickstart_ver_str']}}"
+      - name: Assert switch is currently running with standard OS
+        assert:
+          that:
+          - output['stdout'][0]['kickstart_ver_str'] == '9.3(7)'
+
+      - name: Uploading recommended OS from sftp server
+        nxos_file_copy:
+          file_pull: true
+          file_pull_compact: false
+          file_pull_kstack: yes
+          file_system: 'bootflash:'
+          file_pull_protocol: sftp
+          file_pull_timeout: 3000
+          local_file: nxos.9.3.9.bin
+          remote_file: /nwstorage/nxos.9.3.9.bin
+          remote_scp_server: 10.251.34.157
+          remote_scp_server_user: nwuser
+          remote_scp_server_password: nwuser
+          vrf: default
+
+      - name: Checking MD5 Sum of new OS
+        nxos_command:
+          commands:
+            - show file bootflash:nxos.9.3.9.bin md5sum | json
+        register: output
+      - name: Print MD5 Sum of new software version as calculated on the switch
+        debug: msg="{{output['stdout'][0]['file_content_md5sum']}}"
+      - name: Assert MD5 Sum of new software version on switch is correct
+        assert:
+          that:
+          - output['stdout'][0]['file_content_md5sum'] == 'd3b544052764e61302d680877bbe02c4'
