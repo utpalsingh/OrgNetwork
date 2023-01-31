@@ -5,13 +5,13 @@
 
     tasks:
       - name: Removing old and unused OS from device
-        nxos_command:
+        cisco.nxos.nxos_command:
           commands:
           - delete bootflash:nxos.7.0.3.I2.2.bin no-prompt
           - delete bootflash:nxos.7.0.3.I2.2d.bin no-prompt
 
       - name: Checking current OS version
-        nxos_command:
+        cisco.nxos.nxos_command:
           commands: [show version | json]
         register: output
       - name: Print current OS version
@@ -22,10 +22,9 @@
           - output['stdout'][0]['kickstart_ver_str'] == '9.3(7)'
 
       - name: Uploading recommended OS from sftp server
-        nxos_file_copy:
+        cisco.nxos.nxos_file_copy:
           file_pull: true
           file_pull_compact: false
-          file_pull_kstack: yes
           file_system: 'bootflash:'
           file_pull_protocol: sftp
           file_pull_timeout: 3000
@@ -37,7 +36,7 @@
           vrf: default
 
       - name: Checking MD5 Sum of new OS
-        nxos_command:
+        cisco.nxos.nxos_command:
           commands:
             - show file bootflash:nxos.9.3.9.bin md5sum | json
         register: output
