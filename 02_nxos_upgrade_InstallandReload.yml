@@ -1,6 +1,6 @@
 ---
   - name: Initializing software upgrade on n9k switch
-    hosts: sbin9kupgrade
+    hosts: nxosdc
     gather_facts: no
 
     tasks:
