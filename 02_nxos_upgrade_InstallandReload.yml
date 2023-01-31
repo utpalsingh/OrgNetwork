@@ -1,5 +1,5 @@
 ---
-  - name: Initializing software upgrade on n9k switch
+  - name: Initializing new software install
     hosts: nxosdc
     gather_facts: no
 
