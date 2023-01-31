@@ -5,7 +5,7 @@
 
     tasks:
       - name: Checking newly installed OS
-        nxos_command:
+        cisco.nxos.nxos_command:
           commands: [show version | json]
         register: output
       - name: Print current OS version
