@@ -1,6 +1,6 @@
 ---
-  - name: Initializing switch configuration
-    hosts: iosswitchbranch
+  - name: Initializing disk cleanup
+    hosts: nxosdc
     gather_facts: no
 
     tasks:
