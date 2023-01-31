@@ -1,0 +1,19 @@
+---
+  - name: Initializing software upgrade on n9k switch
+    hosts: sbin9kupgrade
+    gather_facts: no
+
+    tasks:
+      - name: Installing new OS
+        check_mode: no
+        nxos_install_os:
+          system_image_file: nxos.9.3.9.bin
+          issu: desired
+
+      - name: Reboot in progress...please standby
+        wait_for:
+          port: 22
+          state: started
+          timeout: 600
+          delay: 60
+          host: '{{ inventory_hostname }}'
