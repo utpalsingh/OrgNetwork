@@ -1,0 +1,113 @@
+---
+  - name: Initializing command output collection
+    hosts: iosrouterbranch
+    gather_facts: no
+
+    tasks:
+      - name: Collecting command output "show run all | sec banner"
+        ios_command:
+          commands: show run all | sec banner
+        register: command_output
+        vars:
+          ansible_command_timeout: 60
+      - debug:
+          msg: "{{ command_output.stdout_lines }}"
+
+      - name: Collecting command output "show run all | sec tacacs"
+        ios_command:
+          commands: show run all | sec tacacs
+        register: command_output
+        vars:
+          ansible_command_timeout: 60
+      - debug:
+          msg: "{{ command_output.stdout_lines }}"
+
+      - name: Collecting command output "show run all | i small"
+        ios_command:
+          commands: show run all | i small
+        register: command_output
+        vars:
+          ansible_command_timeout: 60
+      - debug:
+          msg: "{{ command_output.stdout_lines }}"
+
+      - name: Collecting command output "show run all | i bootp"
+        ios_command:
+          commands: show run all | i bootp
+        register: command_output
+        vars:
+          ansible_command_timeout: 60
+      - debug:
+          msg: "{{ command_output.stdout_lines }}"
+
+      - name: Collecting command output "show run all | i pad"
+        ios_command:
+          commands: show run all | i pad
+        register: command_output
+        vars:
+          ansible_command_timeout: 60
+      - debug:
+          msg: "{{ command_output.stdout_lines }}"
+
+      - name: Collecting command output "show run all | i finger"
+        ios_command:
+          commands: show run all | i finger
+        register: command_output
+        vars:
+          ansible_command_timeout: 60
+      - debug:
+          msg: "{{ command_output.stdout_lines }}"
+
+      - name: Collecting command output "show run all | i http"
+        ios_command:
+          commands: show run all | i http
+        register: command_output
+        vars:
+          ansible_command_timeout: 60
+      - debug:
+          msg: "{{ command_output.stdout_lines }}"
+
+      - name: Collecting command output "show run all | i identd"
+        ios_command:
+          commands: show run all | i identd
+        register: command_output
+        vars:
+          ansible_command_timeout: 60
+      - debug:
+          msg: "{{ command_output.stdout_lines }}"
+
+      - name: Collecting command output "show run all | i domain"
+        ios_command:
+          commands: show run all | i domain
+        register: command_output
+        vars:
+          ansible_command_timeout: 60
+      - debug:
+          msg: "{{ command_output.stdout_lines }}"
+
+      - name: Collecting command output "show run all | i dhcp"
+        ios_command:
+          commands: show run all | i dhcp
+        register: command_output
+        vars:
+          ansible_command_timeout: 60
+      - debug:
+          msg: "{{ command_output.stdout_lines }}"
+
+      - name: Collecting command output "show run all | i mop"
+        ios_command:
+          commands: show run all | i mop
+        register: command_output
+        vars:
+          ansible_command_timeout: 60
+      - debug:
+          msg: "{{ command_output.stdout_lines }}"
+
+      - name: Collecting command output "show run all | i snmp"
+        ios_command:
+          commands: show run all | i snmp
+        register: command_output
+        vars:
+          ansible_command_timeout: 60
+      - debug:
+          msg: "{{ command_output.stdout_lines }}"
