@@ -29,10 +29,10 @@
           file_pull_protocol: sftp
           file_pull_timeout: 3000
           local_file: nxos.9.3.9.bin
-          remote_file: /nwstorage/nxos.9.3.9.bin
-          remote_scp_server: 10.251.34.157
-          remote_scp_server_user: nwuser
-          remote_scp_server_password: nwuser
+          remote_file: /sftpuser/nxos.9.3.9.bin
+          remote_scp_server: 172.16.0.100
+          remote_scp_server_user: sftpuser
+          remote_scp_server_password: Apple@12
           vrf: default
 
       - name: Checking MD5 Sum of new OS
