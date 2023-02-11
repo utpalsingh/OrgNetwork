@@ -7,7 +7,7 @@
       - name: Installing new OS
         check_mode: no
         cisco.nxos.nxos_install_os:
-          system_image_file: nxos.9.3.9.bin
+          system_image_file: n3000-compact.9.3.9.bin
           issu: desired
       - name: Reboot in progress...please standby
         wait_for:
