@@ -28,8 +28,8 @@
           file_system: 'bootflash:'
           file_pull_protocol: sftp
           file_pull_timeout: 3000
-          local_file: nxos.9.3.9.bin
-          remote_file: /sftpuser/nxos.9.3.9.bin
+          local_file: n3000-compact.9.3.9.bin
+          remote_file: /sftpuser/n3000-compact.9.3.9.bin
           remote_scp_server: 172.16.0.100
           remote_scp_server_user: sftpuser
           remote_scp_server_password: Apple@12
@@ -38,11 +38,11 @@
       - name: Checking MD5 Sum of new OS
         cisco.nxos.nxos_command:
           commands:
-            - show file bootflash:nxos.9.3.9.bin md5sum | json
+            - show file bootflash:n3000-compact.9.3.9.bin md5sum | json
         register: output
       - name: Print MD5 Sum of new software version as calculated on the switch
         debug: msg="{{output['stdout'][0]['file_content_md5sum']}}"
       - name: Assert MD5 Sum of new software version on switch is correct
         assert:
           that:
-          - output['stdout'][0]['file_content_md5sum'] == 'd3b544052764e61302d680877bbe02c4'
+          - output['stdout'][0]['file_content_md5sum'] == '73402ff289beb8b3004b6aff7bb36fda'
