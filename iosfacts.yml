@@ -14,4 +14,3 @@
         - "Device Software Version: '{{ ansible_net_version }}'"
         - "Device Serial Number:    '{{ ansible_net_serialnum }}'"
         - "Device Software:         '{{ ansible_net_image }}'"
-        - "Device Neighbors:        '{{ ansible_net_neighbors }}'"
