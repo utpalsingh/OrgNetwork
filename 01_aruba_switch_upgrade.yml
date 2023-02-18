@@ -1,0 +1,44 @@
+vars:
+  new_software_file_name: WC.16.05.2022
+
+tasks:
+  - name: Please standby...backing up current configuration
+    aruba_config:
+      backup: yes
+      backup_options:
+        filename: "{{ inventory_hostname }}.cfg"
+        dir_path: /home/utpal/configbackup
+    vars:
+      ansible_command_timeout: 60
+
+  - name: uploading new software on primary partition
+    aruba_command:
+      commands: 
+	  - command: copy scp://nwsftp@10.0.52.42/{{ new_software_file_name }} flash:{{ new_software_file_name }}
+        prompt: The primary image will be deleted.\? \[confirm\]
+        answer: y
+
+  - name: uploading new software on secondary partition
+    aruba_command:
+      commands: 
+	  - command: copy scp://nwsftp@10.0.52.42/{{ new_software_file_name }} flash:{{ new_software_file_name }} secondary
+        prompt: The primary image will be deleted.\? \[confirm\]
+        answer: y
+
+  - name: validating checksum of new software
+    aruba_command:
+      commands: verify /md5 flash:software.bin
+      wait_for: result[0] contains sdasd677sdasdasd89889sdas
+
+  - name: reload in progress
+    aruba_command:
+      command: reload
+      prompt:
+        - confirm
+      answer:
+        - 'y'
+
+  - name: run show version on remote devices
+    aruba_command:
+      commands: show version
+      wait_for: result[0] contains "{{ new_software_file_name }}"
