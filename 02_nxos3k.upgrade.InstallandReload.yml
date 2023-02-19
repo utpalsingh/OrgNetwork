@@ -3,15 +3,16 @@
     hosts: nxosdc
     gather_facts: no
 
-    vars:
-      ansible_persistent_command_timeout: 900
-      ansible_persistent_connect_timeout: 900
     tasks:
       - name: Installing new OS
         check_mode: no
         cisco.nxos.nxos_install_os:
           system_image_file: n3000-compact.9.3.9.bin
           issu: desired
+        vars:
+          ansible_persistent_command_timeout: 900
+          ansible_persistent_connect_timeout: 900
+          
       - name: Reboot in progress...please standby
         wait_for:
           port: 22
