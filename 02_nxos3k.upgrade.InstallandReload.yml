@@ -3,6 +3,9 @@
     hosts: nxosdc
     gather_facts: no
 
+    vars:
+      ansible_persistent_command_timeout: 900
+      ansible_persistent_connect_timeout: 900
     tasks:
       - name: Installing new OS
         check_mode: no
