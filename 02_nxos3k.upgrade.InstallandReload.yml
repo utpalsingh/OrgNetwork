@@ -10,13 +10,13 @@
           system_image_file: n3000-compact.9.3.9.bin
           issu: desired
         vars:
-          ansible_command_timeout: 1800
-          ansible_connect_timeout: 1800
+          ansible_command_timeout: 900
+          ansible_connect_timeout: 900
           
       - name: Reboot in progress...please standby
         wait_for:
           port: 22
           state: started
-          timeout: 500
+          timeout: 900
           delay: 60
           host: '{{ inventory_hostname }}'
