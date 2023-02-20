@@ -1,0 +1,56 @@
+---
+  - name: Initializing logging configuration
+    hosts: iosrouterbranch
+    gather_facts: no
+
+    tasks:
+      - name: Applying syslog global configuration
+        cisco.ios.ios_logging_global:
+          config:
+            buffered:
+#             severity: notifications
+              size: 64000
+#             xml: True
+            console:
+              severity: critical
+#             xml: True
+#           facility: local5
+            history:
+              severity: informational
+            trap: informational
+            hosts:
+              - hostname: 10.191.240.238
+              - hostname: 10.176.227.218
+#               xml: True
+#             - hostname: 172.16.1.10
+#               filtered: True
+#               stream: 10
+#             - hostname: 172.16.1.13
+#               transport:
+#                 tcp:
+#                   port: 514
+#           monitor:
+#             severity: warnings
+#           message_counter: log
+#           snmp_trap:
+#             - errors
+#           userinfo: True
+#           policy_firewall:
+#             rate_limit: 10
+#           logging_on: enable
+#           exception: 4099
+#           dmvpn:
+#             rate_limit: 10
+#           cns_events: warnings
+#           source_interface:
+#             interface: Loopback0
+          state: merged
+
+      - name: Applying servicetimstamp and logging source-interface
+        cisco.ios.ios_config:
+          lines:
+          - service timestamps log datetime msec
+          - logging source-interface Loopback0
+      - name: save running configuration to startup
+        cisco.ios.ios_config:
+          save_when: always
