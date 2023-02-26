@@ -75,10 +75,11 @@
         ansible.builtin.wait_for:
           host: "{{ inventory_hostname }}"
           port: 22
-          delay: 90
-          timeout: 600
+          delay: 60
           state: started
         delegate_to: localhost
+        vars:
+          ansible_command_timeout: 450
 
       - name: Check Image Version      
         ios_facts:
