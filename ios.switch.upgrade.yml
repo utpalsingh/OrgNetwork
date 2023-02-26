@@ -85,12 +85,13 @@
             - 'y'
 
       - name: Reboot in progress...please standby
-        wait_for:
+        ansible.builtin.wait_for:
           port: 22
           state: started
-          timeout: 300
+          delay: 300
           host: "{{ inventory_hostname }}"
- 
+        delegate_to: localhost
+
       - name: Check Image Version      
         ios_facts:
       - debug:
