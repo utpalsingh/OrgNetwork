@@ -71,9 +71,9 @@
           - "exit"
 
       - name: Adding new boot variable
-        ios_config:
-          commands:
-            - "boot system flash:c2960x-universalk9-mz.152-2.E6.bin"
+        cisco.ios.ios_config:
+          lines:
+            - boot system flash:c2960x-universalk9-mz.152-2.E6.bin
           save_when: always
 
       - name: Reload
@@ -88,11 +88,11 @@
         wait_for:
           port: 22
           state: started
-          timeout: 600
-          delay: 90
+          timeout: 300
           host: "{{ inventory_hostname }}"
-        delegate_to: localhost
-
+        retries: 2
+        interval: 10
+ 
       - name: Check Image Version      
         ios_facts:
       - debug:
