@@ -73,7 +73,7 @@
       - name: Adding new boot variable
         cisco.ios.ios_config:
           lines:
-            - boot system flash:c2960x-universalk9-mz.152-7.E6.bin
+            - boot system flash:c2960x-universalk9-mz.152-2.E6.bin
           save_when: always
 
       - name: Reload
