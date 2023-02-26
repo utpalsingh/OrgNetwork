@@ -1,6 +1,6 @@
 ---
   - name: Initializing software upgrade on IOS routers
-    hosts: iosswitchbranch
+    hosts: iosswitchbranchupgrade
     gather_facts: no
 
     vars:
