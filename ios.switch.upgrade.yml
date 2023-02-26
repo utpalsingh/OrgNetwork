@@ -90,8 +90,6 @@
           state: started
           timeout: 300
           host: "{{ inventory_hostname }}"
-        retries: 2
-        interval: 10
  
       - name: Check Image Version      
         ios_facts:
