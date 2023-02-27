@@ -24,6 +24,15 @@
           commands:
           - "configure terminal"
           - "file prompt quiet"
+          
+      - name: Delete old OS on Flash
+        ios_command:
+          commands:
+          - command: delete flash:c2960x-universalk9-mz.152-2.E6.bin
+            prompt: Delete c2960x-universalk9-mz.152-2.E6.bin\? \[confirm\]
+            answer: y
+        vars:
+          ansible_command_timeout: 60
 
       - name: Completed old OS removal
         ios_command:
@@ -37,6 +46,19 @@
           - "configure terminal"
           - "line vty 0 4"
           - "transport output ssh"
+
+      - name: Please standby..recommended IOS upload is in progress
+        cli_command:
+          command: copy scp://admin@172.22.0.100/{{ new_ios_file_name }} flash:{{ new_ios_file_name }}
+          check_all: true
+          prompt:
+          - 'Destination filename'
+          - 'Password'
+          answer:
+          - '{{ new_ios_file_name }}'
+          - 'Apple@123'
+        vars:
+          ansible_command_timeout: 600
 
       - name: Checking MD5 Sum of new OS
         ios_command:
