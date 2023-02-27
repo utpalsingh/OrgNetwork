@@ -29,7 +29,7 @@
         ios_command:
           commands:
           - command: delete flash:c2960x-universalk9-mz.152-2.E6.bin
-            prompt: Delete c2960x-universalk9-mz.152-2.E6.bin\? \[confirm\]
+            prompt: Delete flash:/c2960x-universalk9-mz.152-2.E6.bin? \[confirm\]
             answer: y
         vars:
           ansible_command_timeout: 60
