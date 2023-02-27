@@ -78,7 +78,6 @@
           timeout: 600
           delay: 60
           host: "{{ inventory_hostname }}"
-        delegate_to: localhost
 
       - name: Check Image Version
         ios_facts:
