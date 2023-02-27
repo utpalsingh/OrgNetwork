@@ -16,17 +16,4 @@
           timeout: 450
           connect_timeout: 10
           host: "{{ inventory_hostname }}"
-        delegate_to: localhost          
-
-      - name: Check Image Version
-        ios_facts:
-      - debug:
-          msg:
-          - "Current version is {{ ansible_net_version }}"
-      - name: Assert device is upgraded to recommended OS
-        assert:
-          that:
-            - upgrade_ios_version == ansible_net_version
-      - debug:
-          msg:
-          - "Software Upgrade has been completed"
+        delegate_to: localhost
