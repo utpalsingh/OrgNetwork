@@ -25,15 +25,6 @@
           - "configure terminal"
           - "file prompt quiet"
           
-      - name: Delete old OS on Flash
-        ios_command:
-          commands:
-          - command: delete flash:c2960x-universalk9-mz.152-2.E6.bin
-            prompt: Delete flash:/c2960x-universalk9-mz.152-2.E6.bin? \[confirm\]
-            answer: yes
-        vars:
-          ansible_command_timeout: 60
-
       - name: Completed old OS removal
         ios_command:
           commands:
