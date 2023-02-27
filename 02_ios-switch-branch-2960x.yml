@@ -1,0 +1,32 @@
+---
+  - name: Initializing software upgrade on IOS routers
+    hosts: iosswitchbranchupgrade
+    gather_facts: no
+
+    vars:
+      upgrade_ios_version: 15.2(2)E6
+      new_ios_file_name: c2960x-universalk9-mz.152-2.E6.bin
+
+    tasks:
+      - name: Reboot in progress...please standby
+        ansible.builtin.wait_for:
+          port: 22
+          state: started
+          delay: 60
+          timeout: 450
+          connect_timeout: 10
+          host: "{{ inventory_hostname }}"
+        delegate_to: localhost          
+
+      - name: Check Image Version
+        ios_facts:
+      - debug:
+          msg:
+          - "Current version is {{ ansible_net_version }}"
+      - name: Assert device is upgraded to recommended OS
+        assert:
+          that:
+            - upgrade_ios_version == ansible_net_version
+      - debug:
+          msg:
+          - "Software Upgrade has been completed"
