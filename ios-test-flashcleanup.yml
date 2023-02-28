@@ -1,0 +1,29 @@
+---
+  - name: Initializing software upgrade on IOS routers
+    hosts: iosswitchbranchupgrade
+    gather_facts: no
+
+    vars:
+      upgrade_ios_version: 15.2(2)E6
+      new_ios_file_name: c2960x-universalk9-mz.152-2.E6.bin
+
+    tasks:
+      - name: Initilizing old OS removal
+        ios_command:
+          commands:
+          - "configure terminal"
+          - "file prompt quiet"
+      - name: Delete old OS on Flash
+        ios_command:
+          commands:
+          - command: delete usbflash0:c2960x-universalk9-mz.152-2.E6.bin
+            prompt: Delete flash:/c2960x-universalk9-mz.152-2.E6.bin\? \[confirm\]
+            answer: y
+        vars:
+          ansible_command_timeout: 60
+
+      - name: Completed old OS removal
+        ios_command:
+          commands:
+          - "configure terminal"
+          - "no file prompt quiet"
