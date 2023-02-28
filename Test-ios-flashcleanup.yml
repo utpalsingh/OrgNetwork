@@ -16,7 +16,7 @@
       - name: Delete old OS on Flash
         ios_command:
           commands:
-          - command: delete usbflash0:c2960x-universalk9-mz.152-2.E6.bin
+          - command: delete flash:c2960x-universalk9-mz.152-2.E6.bin
             prompt: Delete flash:/c2960x-universalk9-mz.152-2.E6.bin\? \[confirm\]
             answer: y
         vars:
