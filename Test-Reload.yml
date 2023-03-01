@@ -4,14 +4,14 @@
     gather_facts: no
 
     vars:
-      upgrade_ios_version: 15.2(7)E6
-      new_ios_file_name: c2960x-universalk9-mz.152-7.E6.bin
+      upgrade_ios_version: 15.2(2)E6
+      new_ios_file_name: c2960x-universalk9-mz.152-2.E6.bin
 
     tasks:
       - name: Adding new boot variable
         cisco.ios.ios_config:
           lines:
-            - boot system flash:c2960x-universalk9-mz.152-7.E6.bin
+            - boot system flash:c2960x-universalk9-mz.152-2.E6.bin
           save_when: always
 
       - name: Reload
@@ -25,10 +25,7 @@
       - name: Reboot in progress...please standby
         ansible.builtin.wait_for:
           host: "{{ inventory_hostname }}"
-          port: 22
-          delay: 400
-          timeout: 460
-        delegate_to: localhost
+          timeout: 400
         
       - name: Check Image Version
         ios_facts:
