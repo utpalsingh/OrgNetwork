@@ -36,10 +36,18 @@
         ansible.builtin.wait_for:
           host: "{{ inventory_hostname }}"
           port: 22
-          delay: 60
-          timeout: 450
+          delay: 90
         delegate_to: localhost
         
-        
-        
-        
+      - name: Check Image Version
+        ios_facts:
+      - debug:
+          msg:
+          - "Current version is {{ ansible_net_version }}"
+      - name: Assert device is upgraded to recommended OS
+        assert:
+          that:
+            - upgrade_ios_version == ansible_net_version
+      - debug:
+          msg:
+          - "Software Upgrade has been completed"
