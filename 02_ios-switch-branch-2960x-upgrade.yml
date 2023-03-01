@@ -10,8 +10,4 @@
     tasks:
       - name: Reboot in progress...please standby
         ansible.builtin.wait_for:
-          host: "{{ inventory_hostname }}"
-          port: 22
-          delay: 60
-          timeout: 450
-        delegate_to: localhost
+          timeout: 360
