@@ -1,0 +1,33 @@
+---
+  - name: Initializing software upgrade on IOS routers
+    hosts: iosswitchbranchupgrade
+    gather_facts: no
+
+    vars:
+      upgrade_ios_version: 15.2(2)E6
+      new_ios_file_name: c2960x-universalk9-mz.152-2.E6.bin
+
+    tasks:
+      - name: Checking MD5 Sum of new OS
+        ios_command:
+          commands:
+          - "verify /md5 {{ new_ios_file_name }}"
+          wait_for:
+          - result[0] contains "3a1db74f663e0b5601b6a2ae22cdf3a7"
+          retries: 1
+        vars:
+          ansible_command_timeout: 120
+
+      - name: Adding new boot variable
+        cisco.ios.ios_config:
+          lines:
+            - boot system flash:c2960x-universalk9-mz.152-2.E6.bin
+          save_when: always
+
+      - name: Reload
+        cli_command:
+          command: reload
+          prompt:
+            - confirm
+          answer:
+            - 'y'
