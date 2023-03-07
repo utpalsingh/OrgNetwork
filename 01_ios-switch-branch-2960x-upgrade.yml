@@ -4,8 +4,8 @@
     gather_facts: no
 
     vars:
-      upgrade_ios_version: 15.2(2)E6
-      new_ios_file_name: c2960x-universalk9-mz.152-2.E6.bin
+      upgrade_ios_version: 15.2(7)E7
+      new_ios_file_name: c2960x-universalk9-mz.152-7.E7.bin
 
     tasks:
       - name: Checking current OS version
@@ -13,7 +13,7 @@
       - debug:
           msg:
           - "Current version is {{ ansible_net_version }}"
-          - "Upgrade image is 15.2(2)E6"
+          - "Upgrade image is 15.2(7)E7"
       - debug:
           msg:
           - "Image is not compliant and will be upgraded"
@@ -28,8 +28,8 @@
       - name: Delete old OS on Flash
         ios_command:
           commands:
-          - command: delete flash:c2960x-universalk9-mz.152-7.E4.bin
-            prompt: Delete flash:/c2960x-universalk9-mz.152-7.E4.bin\? \[confirm\]
+          - command: delete flash:c2960x-universalk9-mz.152-2.E6.bin
+            prompt: Delete flash:/c2960x-universalk9-mz.152-2.E6.bin\? \[confirm\]
             answer: y
         vars:
           ansible_command_timeout: 60
@@ -65,7 +65,7 @@
           commands:
           - "verify /md5 {{ new_ios_file_name }}"
           wait_for:
-          - result[0] contains "3a1db74f663e0b5601b6a2ae22cdf3a7"
+          - result[0] contains "1b3781db619dcce6a2677628acc15439"
           retries: 1
         vars:
           ansible_command_timeout: 120
@@ -82,7 +82,7 @@
       - name: Adding new boot variable
         cisco.ios.ios_config:
           lines:
-            - boot system flash:c2960x-universalk9-mz.152-2.E6.bin
+            - boot system flash:c2960x-universalk9-mz.152-7.E7.bin
           save_when: always
 
       - name: Reload
